@@ -311,14 +311,14 @@ def render_smart_timer(global_secs, q_secs):
 # UI: หน้าแรก (Setup)
 # ==========================================
 if st.session_state.stage == 'setup':
-    st.markdown("<h1 style='text-align: center; font-size: 45px;'>การสอบของลิง</h1>", unsafe_allow_html=True)
+    st.markdown("<h1 style='text-align: center; font-size: 45px;'>การสอบของคนว่าง</h1>", unsafe_allow_html=True)
     st.markdown("<p style='text-align: center; opacity: 0.7; margin-bottom: 30px;'>พัฒนาด้วยใจ: จากกร</p>", unsafe_allow_html=True)
     
     col_diff, col_mode = st.columns(2)
     with col_diff:
-        st.session_state.difficulty = st.radio("🌟 ระดับความยาก:", ["ง่ายนิดนึง (พื้นฐาน)", "ยากสุดๆไม่มีลุ้นข้อกานะ (แอดวานซ์)"])
+        st.session_state.difficulty = st.radio(" ระดับความยาก:", ["ง่ายนิดนึง (พื้นฐาน)", "ยากสุดๆไม่มีลุ้นข้อกานะ (แอดวานซ์)"])
     with col_mode:
-        st.session_state.mode = st.radio("🎯 รูปแบบการใช้งาน:", ["สอบ: Fixed (กำหนดข้อ)", "สอบ: Endless (ไร้ขีดจำกัด)", "📚 โหมดทบทวน (ไม่จับเวลา+มีเฉลย)"])
+        st.session_state.mode = st.radio(" รูปแบบการใช้งาน", ["สอบ Fixed (อันนี้เอาแค่นี้พอได้ทำ)", "สอบ Endless (สำหรับคนว่าง)", " เอาไว้ทบทวน (ไม่จับเวลา+มีเฉลย)"])
     
     is_review = "ทบทวน" in st.session_state.mode
     st.markdown("<hr style='border-color: #333;'>", unsafe_allow_html=True)
@@ -328,7 +328,7 @@ if st.session_state.stage == 'setup':
     with c2: st.session_state.time_total = st.number_input("เวลารวม (นาที):", 1, 180, 10, disabled=is_review)
     with c3: st.session_state.time_q = st.number_input("เวลาต่อข้อ (วิ) [0=ไม่จำกัด]:", 0, 300, 30, disabled=is_review)
 
-    st.write("📚 **เลือกหลักสูตรที่ต้องการ:**")
+    st.write(" **หลักสูตร:**")
     active_topics = HARD_TOPICS if "ยาก" in st.session_state.difficulty else EASY_TOPICS
     
     # วนลูปเพื่อสร้าง Checkbox แบบ 2 คอลัมน์ให้ดูสวยงามและไม่รก
@@ -340,8 +340,8 @@ if st.session_state.stage == 'setup':
                 selected_topics.append(t)
                 
     st.markdown("<br>", unsafe_allow_html=True)
-    if st.button("🚀 START (เริ่มกันเลย!)", use_container_width=True, type="primary"):
-        if not selected_topics: st.error("⚠️ กรุณาเลือกเนื้อหาอย่างน้อย 1 เรื่องครับ!")
+    if st.button("START (อ่าเวลาปวดหัว)", use_container_width=True, type="primary"):
+        if not selected_topics: st.error("เลือกซักอันแหมะ")
         else:
             st.session_state.selected_topics = selected_topics
             st.session_state.score = 0
