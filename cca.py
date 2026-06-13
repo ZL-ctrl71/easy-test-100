@@ -316,7 +316,7 @@ if st.session_state.stage == 'setup':
     
     col_diff, col_mode = st.columns(2)
     with col_diff:
-        st.session_state.difficulty = st.radio(" ระดับความยาก:", ["ง่ายนิดนึง (พื้นฐาน)", "ยากสุดๆไม่มีลุ้นข้อกานะ (แอดวานซ์)"])
+        st.session_state.difficulty = st.radio(" ระดับความยาก:", ["ง่ายนิดนึง (พื้นฐาน)", "ยากสุดๆ (กดดูสิมีลุ้น)"])
     with col_mode:
         st.session_state.mode = st.radio(" รูปแบบการใช้งาน", ["สอบ Fixed (อันนี้เอาแค่นี้พอได้ทำ)", "สอบ Endless (สำหรับคนว่าง)", " เอาไว้ทบทวน (ไม่จับเวลา+มีเฉลย)"])
     
@@ -377,19 +377,19 @@ elif st.session_state.stage == 'testing':
     """, unsafe_allow_html=True)
 
     q = st.session_state.current_q
-    st.info(f"📌 หมวดหมู่: {q['topic']}")
+    st.info(f" หมวดหมู่: {q['topic']}")
     st.markdown(f"<div style='text-align:center; font-size: 20px; margin-top:20px;'>{q['desc']}</div>", unsafe_allow_html=True)
     st.latex(q['math'])
     
     if st.session_state.show_solution:
         if st.session_state.last_answer_correct:
-            st.success("🎉 ตอบถูกต้อง ยอดเยี่ยมมาก!")
+            st.success("เก่งนะเนี่ย")
         else:
-            st.error(f"❌ ยังไม่ถูกจ้า คำตอบที่ถูกต้องคือ: {q['a']}")
+            st.error(f"เดี๋ยวบอกๆ: {q['a']}")
             
         st.markdown(f"<div class='solution-box'>{q['solution']}</div>", unsafe_allow_html=True)
         
-        if st.button("▶️ ไปข้อถัดไป (Next)", use_container_width=True, type="primary"):
+        if st.button(" ข้อถัดไป (Next)", use_container_width=True, type="primary"):
             next_question()
             st.rerun()
     else:
@@ -397,11 +397,11 @@ elif st.session_state.stage == 'testing':
         
         col_skip, col_stop = st.columns(2)
         with col_skip:
-            if st.button("⏭️ SKIP (ยากขนาดนี้ข้ามดีกว่า)", use_container_width=True):
+            if st.button(" SKIP (ยากขนาดนี้ข้ามดีกว่า)", use_container_width=True):
                 next_question()
                 st.rerun()
         with col_stop:
-            if st.button("🛑 STOP EXAM (ได้เท่าไหร่นะ)", use_container_width=True):
+            if st.button(" STOP EXAM (ได้เท่าไหร่นะ)", use_container_width=True):
                 st.session_state.stage = 'result'
                 st.rerun()
 
@@ -409,7 +409,7 @@ elif st.session_state.stage == 'testing':
 # UI: หน้าสรุปผล
 # ==========================================
 elif st.session_state.stage == 'result':
-    st.markdown("<h1 style='text-align: center; font-size: 60px;'>🎯 EXAM FINISHED!</h1>", unsafe_allow_html=True)
+    st.markdown("<h1 style='text-align: center; font-size: 60px;'> EXAM FINISHED!</h1>", unsafe_allow_html=True)
     st.balloons()
     st.markdown(f"""
         <div style="background: rgba(0,255,204,0.1); border: 2px solid #00ffcc; border-radius: 15px; padding: 30px; text-align: center; margin: 20px 0;">
@@ -421,6 +421,6 @@ elif st.session_state.stage == 'result':
         </div>
     """, unsafe_allow_html=True)
     
-    if st.button("🔄 กลับหน้าหลัก / ทำชุดใหม่", use_container_width=True, type="primary"):
+    if st.button(" กลับหน้าหลัก / ทำชุดใหม่", use_container_width=True, type="primary"):
         st.session_state.stage = 'setup'
         st.rerun()
